@@ -1,0 +1,49 @@
+#!/usr/bin/php
+<?php
+
+$ret = file_get_contents('./autologin');
+
+$date = new DateTime();
+$first_day = $date->modify('this week')->format('Y-m-d');
+$last_day = $date->modify('this week +6 days')->format('Y-m-d');
+
+$link = "https://intra.epitech.eu/".$ret."/planning/load?format=json&start=".$first_day."&end=".$last_day;
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $link);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+
+$data = curl_exec($ch);
+
+curl_close($ch);
+
+$data_arr = json_decode($data, true);
+
+$model = file_get_contents("./config.json");
+$model_arr = json_decode($model, true);
+
+foreach($data_arr as $tab) {
+    $len = count($model_arr);
+    foreach ($model_arr as $tab_model) {
+        if ($len > 2) {
+            foreach ($tab as $key => $value) {
+                if ($tab_model["CONNECT_VAR_PLANNING"] == $key && ($tab["semester"] == $model_arr["SEMESTER_VALUE"][0] || $tab["semester"] == $model_arr["SEMESTER_VALUE"][1])) {
+                    if ($value == "") {
+                        print("No  ");
+                    } else if ($value == 1 || $value == "registered") {
+                        print('Yes  ');
+                    } else {
+                        print($value.'  ');
+                    }
+                }
+            }
+        }
+        $len -= 1;
+    }
+    if ($tab["semester"] == $model_arr["SEMESTER_VALUE"][0] || $tab["semester"] == $model_arr["SEMESTER_VALUE"][1]) {
+        print("\n");
+    }
+}
+
+?>

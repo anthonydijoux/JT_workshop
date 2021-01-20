@@ -1,0 +1,33 @@
+{
+    "MODULE":
+    {
+        "DISPLAY":true,
+        "CONNECT_VAR_PLANNING":"codemodule"
+    },
+    "DATE_DEBUT":
+    {
+        "DISPLAY":true,
+        "CONNECT_VAR_PLANNING":"start"
+    },
+    "DATE_FIN":
+    {
+        "DISPLAY":true,
+        "CONNECT_VAR_PLANNING":"end"
+    },
+    "ACTIVITI_TITLE":
+    {
+        "DISPLAY":true,
+        "CONNECT_VAR_PLANNING":"acti_title"
+    },
+    "SECTION_REGISTERED":
+    {
+        "DISPLAY":true,
+        "CONNECT_VAR_PLANNING":"event_registered"
+    },
+    "MODULE_REGISTERED":
+    {
+        "DISPLAY":false,
+        "CONNECT_VAR_PLANNING":"module_registered"
+    },
+    "SEMESTER_VALUE":[5, 0]
+}
